@@ -93,7 +93,8 @@ Task 2. List all albums along with their respective artists.
 SELECT 
 	DISTINCT album,
 	artist
-FROM spotify;
+FROM
+	spotify;
 ```
 
 Task 3. Get the total number of comments for tracks where licensed = TRUE.
