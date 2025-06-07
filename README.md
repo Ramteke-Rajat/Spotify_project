@@ -8,10 +8,11 @@ Project Category: Advanced
 This project involves analyzing a Spotify dataset with various attributes about tracks, albums, and artists using **SQL**. It covers an end-to-end process of normalizing a denormalized dataset, performing SQL queries of varying complexity (easy, medium, and advanced), and optimizing query performance. The primary goals of the project are to practice advanced SQL skills and generate valuable insights from the dataset.
 
 ```sql
--- create table
+-- Creating the Table = spotify
+
 DROP TABLE IF EXISTS spotify;
-CREATE TABLE spotify (
-    artist VARCHAR(255),
+CREATE TABLE spotify
+(	artist VARCHAR(255),
     track VARCHAR(255),
     album VARCHAR(255),
     album_type VARCHAR(50),
@@ -36,10 +37,12 @@ CREATE TABLE spotify (
     energy_liveness FLOAT,
     most_played_on VARCHAR(50)
 );
+
+SELECT * FROM spotify;
 ```
 ## Project Steps
 
-### 1. Data Exploration
+### Data Exploration
 Before diving into SQL, it’s important to understand the dataset thoroughly. The dataset contains attributes such as:
 - `Artist`: The performer of the track.
 - `Track`: The name of the song.
@@ -47,33 +50,48 @@ Before diving into SQL, it’s important to understand the dataset thoroughly. T
 - `Album_type`: The type of album (e.g., single or album).
 - Various metrics such as `danceability`, `energy`, `loudness`, `tempo`, and more.
 
-### 4. Querying the Data
-After the data is inserted, various SQL queries can be written to explore and analyze the data. Queries are categorized into **easy**, **medium**, and **advanced** levels to help progressively develop SQL proficiency.
+```sql
+SELECT COUNT(DISTINCT artist) FROM spotify;
 
-#### Easy Queries
-- Simple data retrieval, filtering, and basic aggregations.
-  
-#### Medium Queries
-- More complex queries involving grouping, aggregation functions, and joins.
-  
-#### Advanced Queries
-- Nested subqueries, window functions, CTEs, and performance optimization.
+SELECT COUNT(DISTINCT album) FROM spotify;
 
-### 5. Query Optimization
-In advanced stages, the focus shifts to improving query performance. Some optimization strategies include:
-- **Indexing**: Adding indexes on frequently queried columns.
-- **Query Execution Plan**: Using `EXPLAIN ANALYZE` to review and refine query performance.
-  
+SELECT DISTINCT album_type FROM spotify;
+
+SELECT MAX(duration_min) FROM spotify;
+
+SELECT MIN(duration_min) FROM spotify;
+
+SELECT * FROM spotify
+WHERE duration_min = 0
+
+-- Duration of a song cannot be 0, hence deleting the records for 0 duration.
+
+DELETE FROM spotify
+WHERE duration_min = 0
+
+SELECT COUNT(DISTINCT channel) FROM spotify;
+
+SELECT DISTINCT most_played_on FROM spotify;
+```
 ---
 
 ## 15 Practice Questions
 
-### Easy Level
 1. Retrieve the names of all tracks that have more than 1 billion streams.
-2. List all albums along with their respective artists.
-3. Get the total number of comments for tracks where `licensed = TRUE`.
-4. Find all tracks that belong to the album type `single`.
-5. Count the total number of tracks by each artist.
+```sql
+SELECT 
+	track,
+	stream
+FROM
+	spotify
+WHERE 
+	stream > 1000000000;
+```
+
+3. List all albums along with their respective artists.
+4. Get the total number of comments for tracks where `licensed = TRUE`.
+5. Find all tracks that belong to the album type `single`.
+6. Count the total number of tracks by each artist.
 
 ### Medium Level
 1. Calculate the average danceability of tracks in each album.
